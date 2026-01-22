@@ -1,10 +1,16 @@
 
 package com.cine.cinema.services;
 
+import com.cine.cinema.mapper.UsuarioMapper;
 import com.cine.cinema.models.entities.reserva.Reserva;
 import com.cine.cinema.models.entities.reserva.ReservaDto;
 import com.cine.cinema.mapper.ReservaMapper;
+import com.cine.cinema.models.entities.showtime.Showtime;
+import com.cine.cinema.models.entities.usuario.Usuario;
+import com.cine.cinema.models.entities.usuario.UsuarioDto;
 import com.cine.cinema.models.repository.ReservaRepository;
+import com.cine.cinema.models.repository.ShowtimeRepository;
+import com.cine.cinema.models.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +21,16 @@ import java.util.stream.Collectors;
 public class ReservaService implements IReservaService {
     @Autowired
     private ReservaRepository reservaRepository;
+    @Autowired
     private ReservaMapper reservaMapper;
+    @Autowired
     private ShowtimeRepository showtimeRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     @Override
     public ReservaDto crearReserva(ReservaDto reservaDto) {
-        Showtime showtime = showtimeRepository.findById(reservaDto.getShowtime().getShowtimeId())
+        Showtime showtime = showtimeRepository.findById(Long.valueOf(reservaDto.getShowtime().getShowtimeId()))
                 .orElseThrow(() -> new RuntimeException("Showtime no encontrado"));
         Reserva reserva = reservaMapper.fromDto(reservaDto);
         reserva.setShowtime(showtime);
@@ -32,34 +40,17 @@ public class ReservaService implements IReservaService {
         if (reservaDto.getAsientos() != null) {
             for (var asiento : reservaDto.getAsientos()) {
                 // Se asume que reservarAsiento acepta fila y número
-                reservarAsientoEnShowtime(showtime, asiento.getFila(), asiento.getNumero());
+               showtime.reservarAsiento(asiento.getFila(), asiento.getNumero());
             }
         }
 
         Reserva guardada = reservaRepository.save(reserva);
         return reservaMapper.toDto(guardada);
     }
-
-    private void reservarAsientoEnShowtime(Showtime showtime, String fila, Integer numero) {
-        // Aquí puedes adaptar la lógica según la implementación de reservarAsiento
-        // Si tu método reservarAsiento solo acepta número, puedes concatenar fila y número o modificar el método
-        // Ejemplo: showtime.reservarAsiento(fila, numero);
-        // Si solo acepta número:
-        // showtime.reservarAsiento(numero);
-        // Aquí se asume que puedes modificar Showtime para aceptar fila y número
-        // showtime.reservarAsiento(fila, numero);
-        // Por ahora, solo ejemplo:
-        // showtime.reservarAsiento(numero);
-        // Si tienes que crear el AsientoReservado manualmente:
-        // ...
-        // Debes adaptar esto según tu dominio
-    }
-    }
-
+    
     Usuario findOrCreateUsuario(UsuarioDto usuarioDto) {
-
         return usuarioRepository.findById(usuarioDto.getUsuarioId().intValue())
-                .orElseGet(() -> usuarioRepository.save(usuarioMapper.fromDto(usuarioDto)));
+                .orElseGet(() -> usuarioRepository.save(UsuarioMapper.fromDto(usuarioDto)));
     }
 
     @Override
@@ -76,12 +67,6 @@ public class ReservaService implements IReservaService {
         return reservaMapper.toDto(reserva);
     }
 
-
-    @Override
-    public void eliminarReserva(Long id) {
-        reservaRepository.deleteById(id.intValue());
-    }
-
     @Override
     public void cancelarReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id.intValue())
@@ -90,3 +75,4 @@ public class ReservaService implements IReservaService {
         reservaRepository.save(reserva);
     }
 }
+

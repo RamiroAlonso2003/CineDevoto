@@ -21,8 +21,12 @@ import java.util.Optional;
 public class ShowtimeService implements IshowtimeService {
     @Autowired
     private ShowtimeRepository showtimeRepository;
+    @Autowired
     private PeliculaRepository peliculaRepository;
+    @Autowired
     private SalaRepository salaRepository;
+    @Autowired
+    private com.cine.cinema.models.repository.UsuarioRepository usuarioRepository;
 
 
     @Override

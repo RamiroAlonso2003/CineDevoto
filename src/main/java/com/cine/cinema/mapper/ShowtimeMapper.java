@@ -8,7 +8,7 @@ public class ShowtimeMapper {
     // ================================
     // Mapear Showtime -> ShowtimeDto
     // ================================
-    public static ShowtimeDto toDTO(Showtime showtime) {
+    public static ShowtimeDto toDto(Showtime showtime) {
         if (showtime == null) return null;
 
         return ShowtimeDto.builder()
@@ -22,7 +22,7 @@ public class ShowtimeMapper {
     // ================================
     // Mapear ShowtimeDto -> Showtime
     // ================================
-    public static Showtime fromDTO(ShowtimeDto dto) {
+    public static Showtime fromDto(ShowtimeDto dto) {
         if (dto == null) return null;
 
         return Showtime.builder()

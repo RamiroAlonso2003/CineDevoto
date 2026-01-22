@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/peliculas")
 public class PeliculasController {
@@ -29,6 +31,17 @@ public class PeliculasController {
     public Long crearPelicula(@RequestBody PeliculaDto peliculaDTO) {
         logger.info("Solicitud para crear una nueva película");
         return peliculaService.crearPelicula(peliculaDTO);
+    }
+
+    /**
+     * Obtiener películas.
+     */
+    @GetMapping
+    public List<PeliculaDto> obtenerPeliculas() {
+        logger.info("Solicitud para obtener todas las películas");
+        return peliculaService.obtenerPeliculas().stream()
+                .map(PeliculaMapper::toDTO)
+                .collect(java.util.stream.Collectors.toList());
     }
 
     /**

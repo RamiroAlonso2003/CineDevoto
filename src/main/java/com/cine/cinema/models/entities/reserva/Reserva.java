@@ -1,5 +1,6 @@
 package com.cine.cinema.models.entities.reserva;
 
+import com.cine.cinema.models.entities.showtime.Showtime;
 import lombok.*;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

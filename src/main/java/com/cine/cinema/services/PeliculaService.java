@@ -26,6 +26,11 @@ public class PeliculaService implements IPeliculaService {
         return pelicula2.getPeliculaId();
     };
 
+    @Override
+    public List<Pelicula> obtenerPeliculas() {
+        return peliculaRepository.findAll();
+    }
+
 
     @Override
     public Pelicula obtenerPeliculaPorId(Integer id){

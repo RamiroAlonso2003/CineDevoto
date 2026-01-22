@@ -2,12 +2,16 @@ package com.cine.cinema.services;
 
 import com.cine.cinema.models.entities.pelicula.*;
 
+import java.util.List;
+
 public interface IPeliculaService {
 
     /**
      * Crea una nueva película y devuelve su ID.
      */
     Long crearPelicula(PeliculaDto peliculaDTO);
+
+    List<Pelicula> obtenerPeliculas();
 
     /**
      * Obtiene una película por su ID.

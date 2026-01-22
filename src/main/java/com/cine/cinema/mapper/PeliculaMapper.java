@@ -11,6 +11,7 @@ public class PeliculaMapper {
                 .descripcion(dto.getDescripcion())
                 .genero(dto.getGenero())
                 .duracion(dto.getDuracion())
+                .posterUrl(dto.getPosterUrl())
                 .build();
     }
 
@@ -21,6 +22,7 @@ public class PeliculaMapper {
                 .descripcion(pelicula.getDescripcion())
                 .genero(pelicula.getGenero())
                 .duracion(pelicula.getDuracion())
+                .posterUrl(pelicula.getPosterUrl())
                 .build();
     }
 }

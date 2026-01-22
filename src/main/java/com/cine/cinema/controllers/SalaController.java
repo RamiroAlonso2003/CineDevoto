@@ -1,41 +1,47 @@
 package com.cine.cinema.controllers;
 
+import com.cine.cinema.models.entities.sala.Sala;
+import com.cine.cinema.models.entities.sala.SalaDto;
+import com.cine.cinema.services.IsalaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/salas")
-@RequiredArgsConstructor
 public class SalaController {
-    
-    private static final Logger logger =
-    LoggerFactory.getLogger(SalaController.class);
+    @Autowired
+    private IsalaService salaService;
 
-    private final SalaService salaService;
+    @GetMapping
+    public List<Sala> findAll() {
+        return salaService.findAll();
+    }
 
-    public SalaController(SalaService salaService) {
-        this.salaService = salaService;
+    @GetMapping("/{id}")
+    public ResponseEntity<Sala> findById(@PathVariable Integer id) {
+        Optional<Sala> sala = salaService.findById(id);
+        return sala.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Integer crearSala(@RequestBody SalaDto salaDto) {
-        logger.info("Solicitud para crear una nueva sala");
-        return salaService.save(salaDto).getSalaId();
+    public ResponseEntity<Integer> crearSala(@RequestBody SalaDto salaDto) {
+        Integer id = salaService.crearSala(salaDto);
+        return ResponseEntity.ok(id);
     }
 
-    @GetMapping("")
-    public List<SalaDto> obtenerSalas() {
-        logger.info("Solicitud para obtener todas las salas");
-        return salaService.findAll()
-                .stream()
-                .map(SalaMapper::toDTO)
-                .orElse(null);
+    @PutMapping("/{id}")
+    public ResponseEntity<Sala> actualizarSala(@PathVariable Integer id, @RequestBody SalaDto salaDto) {
+        Sala sala = salaService.actualizarSala(id, salaDto);
+        return ResponseEntity.ok(sala);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void eliminarSala(@PathVariable Integer id) {
-        logger.info("Solicitud para eliminar la sala con id {}", id);
+    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
         salaService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

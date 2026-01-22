@@ -37,7 +37,7 @@ public class ShowtimeController {
     public ShowtimeDto obtenerShowtimePorId(@PathVariable Integer id) {
         logger.info("Solicitud para obtener el showtime con id {}", id);
         return showtimeService.findById(id)
-                .map(ShowtimeMapper::toDTO)
+                .map(ShowtimeMapper::toDto)
                 .orElse(null);
     }
 
@@ -56,7 +56,7 @@ public class ShowtimeController {
         logger.info("Solicitud para obtener showtimes filtrando por peliculaId={} y fecha={}", peliculaId, fecha);
         return showtimeService.traerShowtimes(peliculaId, fecha)
                 .stream()
-                .map(ShowtimeMapper::toDTO)
+                .map(ShowtimeMapper::toDto)
                 .toList();
     }
 }

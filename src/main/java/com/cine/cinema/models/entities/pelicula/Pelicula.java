@@ -27,6 +27,9 @@ public class Pelicula {
 
     private String posterUrl;
 
+    @Column(nullable = false)
+    private Integer duracion;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "genero_id")
     private Genero genero;

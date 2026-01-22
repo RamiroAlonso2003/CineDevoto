@@ -21,27 +21,27 @@ public class SalaService implements IsalaService {
 
     @Override
     public Optional<Sala> findById(Integer id) {
-        return salaRepository.findById(id);
+        return salaRepository.findById(Math.toIntExact(Long.valueOf(id)));
     }
 
     @Override
     public Integer crearSala(SalaDto salaDto) {
         Sala sala = SalaMapper.fromDTO(salaDto);
         Sala guardada = salaRepository.save(sala);
-        return guardada.getSalaId();
+        return guardada.getSalaId().intValue();
     }
 
     @Override
     public Sala actualizarSala(Integer id, SalaDto salaDto) {
-        Sala sala = salaRepository.findById(id)
+        Sala sala = salaRepository.findById(Math.toIntExact(Long.valueOf(id)))
             .orElseThrow(() -> new RuntimeException("Sala inexistente"));
-        sala.setNombre(salaDto.getNombre());
-        sala.setCapacidad(salaDto.getCapacidad());
+        sala.setFilas(salaDto.getFilas());
+        sala.setAsientosPorFila(salaDto.getAsientosPorFila());
         return salaRepository.save(sala);
     }
 
     @Override
     public void deleteById(Integer id) {
-        salaRepository.deleteById(id);
+        salaRepository.deleteById(Math.toIntExact(Long.valueOf(id)));
     }
 }

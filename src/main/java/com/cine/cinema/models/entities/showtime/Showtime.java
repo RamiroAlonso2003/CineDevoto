@@ -17,6 +17,7 @@ import java.util.Set;
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Showtime {
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,14 +51,20 @@ public class Showtime {
        MÉTODOS DE DOMINIO
        ========================== */
 
-    public void reservarAsiento(int numeroAsiento) {
-        validarAsientoNoReservado(numeroAsiento);
-        AsientoReservado asiento = AsientoReservado.builder()
-                .numero(numeroAsiento)
-                .showtime(this)
-                .build();
+    public void reservarAsiento(String fila, Integer numero) {
+        validarAsientoNoReservado(fila, numero);
+        AsientoReservado asiento = new AsientoReservado(fila, numero, this);
         asientosReservados.add(asiento);
     }
+
+    private void validarAsientoNoReservado(String fila, Integer numero) {
+        boolean reservado = asientosReservados.stream()
+            .anyMatch(a -> a.getFila().equals(fila) && a.getNumero().equals(numero));
+        if (reservado) {
+            throw new IllegalStateException("El asiento " + fila + "-" + numero + " ya está reservado");
+        }
+    }
+
 
     public void cancelarReserva(String numeroAsiento) {
         asientosReservados.removeIf(a -> a.getNumero().equals(numeroAsiento));
@@ -68,11 +75,4 @@ public class Showtime {
                 .anyMatch(a -> a.getNumero().equals(numeroAsiento));
     }
 
-    private void validarAsientoNoReservado(String numeroAsiento) {
-        if (estaReservado(numeroAsiento)) {
-            throw new IllegalStateException(
-                    "El asiento " + numeroAsiento + " ya está reservado"
-            );
-        }
-    }
 }

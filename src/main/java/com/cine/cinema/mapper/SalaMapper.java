@@ -7,16 +7,16 @@ public class SalaMapper {
     public static Sala fromDTO(SalaDto dto) {
         return Sala.builder()
                 .salaId(dto.getSalaId())
-                .nombre(dto.getNombre())
-                .capacidad(dto.getCapacidad())
+                .filas(dto.getFilas())
+                .asientosPorFila(dto.getAsientosPorFila())
                 .build();
     }
 
     public static SalaDto toDTO(Sala sala) {
         return SalaDto.builder()
                 .salaId(sala.getSalaId())
-                .nombre(sala.getNombre())
-                .capacidad(sala.getCapacidad())
+                .filas(sala.getFilas())
+                .asientosPorFila(sala.getAsientosPorFila())
                 .build();
     }
 }
