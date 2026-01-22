@@ -1,0 +1,21 @@
+.rating-score {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 1.5rem 0;
+}
+
+.rating-text {
+  color: white;
+  line-height: 1.3;
+}
+
+.rating-label {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.rating-sublabel {
+  font-size: 0.875rem;
+  opacity: 0.8;
+}

@@ -1,0 +1,31 @@
+.movie-info {
+  color: white;
+}
+
+.movie-info-header {
+  margin-bottom: 1rem;
+}
+
+.movie-info-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.movie-info-year {
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.movie-info-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.movie-info-duration {
+  color: white;
+  font-size: 0.95rem;
+}
