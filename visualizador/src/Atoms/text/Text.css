@@ -1,0 +1,23 @@
+.text {
+  margin: 0;
+}
+
+.text-body {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.text-small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.text-large {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.text-italic {
+  font-style: italic;
+  opacity: 0.8;
+}

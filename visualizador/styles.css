@@ -1,0 +1,20 @@
+:root {
+  /* 🎨 Colores */
+  --color-primary: #009186;
+  --color-secondary: #E3E8E8;
+  --color-danger: #FC3438;
+  --color-info: #0096CC;
+
+  /* 🔤 Tipografía */
+  --font-family-base: 'Bebas Neue', sans-serif;
+
+  /* 📏 Tamaños de texto */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 20px;
+  --font-size-lg: 32px;
+  --font-size-xl: 56px;
+
+  /* ✏️ Pesos (aunque Bebas es single-weight, queda escalable) */
+  --font-weight-regular: 400;
+}

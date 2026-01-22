@@ -1,0 +1,30 @@
+.navbar {
+  height: 72px;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  color: rgb(255, 255, 255);
+
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(0, 145, 134, 1), 
+      rgb(0, 92, 84)
+      
+     /* rgba(10, 10, 10, 0.95),
+      rgba(20, 20, 20, 0.9) */
+    ),
+    url("./topography.svg");
+
+  background-size:
+    cover,
+    800px;
+
+  background-repeat:
+    no-repeat,
+    repeat;
+
+  background-blend-mode: overlay;
+}

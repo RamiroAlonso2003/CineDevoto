@@ -1,0 +1,23 @@
+.movie-overview {
+  color: white;
+  margin-top: 2rem;
+}
+
+.movie-tagline {
+  font-style: italic;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
+
+.movie-description {
+  margin: 1rem 0 2rem 0;
+  line-height: 1.7;
+}
+
+.movie-creator {
+  margin-top: 1.5rem;
+}
+
+.movie-creator h4 {
+  margin-bottom: 0.25rem;
+}

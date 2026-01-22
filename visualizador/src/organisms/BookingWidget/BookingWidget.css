@@ -1,0 +1,172 @@
+@import url('../../styles.css');
+
+.booking-wrapper {
+  min-height: 25vh;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e5ec 50%, #c5cae9 100%);
+  padding: 3rem 1rem;
+}
+
+.booking-widget {
+  background: white;
+  border-radius: 16px;
+  max-width: 1100px;
+  width: 100%;
+  margin: 2rem auto;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.booking-instruction {
+  text-align: center;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin: 0;
+  padding: 1rem 2rem;
+  background-color: var(--color-primary);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.booking-content {
+  padding: 1.2rem 2.5rem;
+  background: #f5f5f5;
+}
+
+.booking-subtitle {
+  text-align: center;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.day-selector {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 0;
+}
+
+.day-arrow {
+  background: transparent;
+  border: none;
+  width: 45px;
+  height: 45px;
+  font-size: 2.2rem;
+  color: #999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.day-arrow:hover {
+  color: #555;
+}
+
+.days-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: hidden;
+  flex: 1;
+  padding: 0.5rem 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.days-container::-webkit-scrollbar {
+  display: none;
+}
+
+.day-card {
+  background: #e8e8e8;
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 0.7rem;
+  min-width: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.day-card:hover {
+  background: #d8d8d8;
+}
+
+.day-card-active {
+  background: var(--color-danger);
+  border: none;
+  color: white;
+  transform: scale(1.05);
+}
+
+.day-weekday {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-danger);
+  text-transform: capitalize;
+}
+
+.day-card-active .day-weekday {
+  color: white;
+}
+
+.day-date {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.day-card-active .day-date {
+  color: white;
+}
+
+.day-month {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: capitalize;
+}
+
+.day-card-active .day-month {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .booking-widget-modern {
+    margin: 2rem 1rem;
+  }
+
+  .booking-content {
+    padding: 1.5rem;
+  }
+
+  .day-selector {
+    gap: 0.5rem;
+  }
+
+  .day-card {
+    min-width: 90px;
+    padding: 0.75rem;
+  }
+
+  .day-date {
+    font-size: 1.75rem;
+  }
+
+  .day-arrow {
+    width: 35px;
+    height: 35px;
+    font-size: 1.25rem;
+  }
+
+  .booking-header-title {
+    font-size: 1.5rem;
+  }
+}

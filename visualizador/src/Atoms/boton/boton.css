@@ -1,0 +1,78 @@
+@import "../../styles.css";
+
+/* ===== BASE ===== */
+.btn {
+  border: none;
+  border-radius: 8px;
+  font-family:'Bebas Neue', sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ===== SIZES ===== */
+.btn-sm {
+  padding: 1px 20px;
+  font-size: 16px;
+}
+
+.btn-md {
+  padding: 2px 30px;
+  font-size: 20px;
+}
+
+.btn-lg {
+  padding: 8px 50px;
+  font-size: 24px;
+}
+
+/* ===== VARIANTS ===== */
+.btn-primary {
+  background-color: var(--color-danger);
+  color: #000000;
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+.btn-danger {
+  background-color: #dc2626;
+  color: white;
+}
+
+/* ===== STATES ===== */
+.btn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== ACCESSIBILITY ===== */
+.btn:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
