@@ -1,4 +1,4 @@
-# 🎬 CineDevoto — Sistema de Gestión de Cine
+# CineDevoto — Sistema de Gestión de Cine
 
 Aplicación fullstack para la gestión de un cine, desarrollada con Spring Boot en el backend y React en el frontend.
 
