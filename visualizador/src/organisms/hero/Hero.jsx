@@ -1,10 +1,7 @@
-import { useNavigate } from 'react-router-dom';
 import Boton from '../../Atoms/boton/boton';
 import './Hero.css';
 
 function Hero() {
-  const navigate = useNavigate();
-
   const irACartelera = () => {
     document.getElementById('cartelera')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -12,14 +9,14 @@ function Hero() {
   return (
     <section className="hero">
       <div className="hero__inner">
-        <p className="hero__kicker">Cine en el corazón de la ciudad</p>
-        <h1 className="hero__title">Vení a vivir el cine como se debe</h1>
+        <h1 className="hero__title">Bienvenido a Cinema Devoto</h1>
         <p className="hero__copy">
-          Pantallas grandes, butacas cómodas y la cartelera actualizada todas las semanas.
+          La mejor experiencia cinematográfica en el corazón de la ciudad. Seis salas,
+          proyección láser, sonido Atmos.
         </p>
         <div className="hero__actions">
           <Boton variant="primary" onClick={irACartelera}>Ver cartelera</Boton>
-          <Boton variant="ghost" onClick={() => navigate('/register')}>Registrarme</Boton>
+          <Boton variant="ghost">Próximos estrenos</Boton>
         </div>
       </div>
     </section>

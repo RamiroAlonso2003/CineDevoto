@@ -11,8 +11,8 @@ function Navbar() {
         <Link to="/" className="navbar__brand">
           <span className="navbar__mark" />
           <span className="navbar__name">
-            <strong>CINE</strong>
-            <span>DEVOTO</span>
+            <strong>DEVOTO SHOPPING</strong>
+            <span>CINEMA</span>
           </span>
         </Link>
 
