@@ -20,10 +20,12 @@ public class PeliculaService implements IPeliculaService {
 
     @Override
     public Long crearPelicula(PeliculaDto peliculaDTO){
-        Pelicula pelicula = PeliculaMapper.fromDTO(peliculaDTO);
-
-        Pelicula pelicula2 = peliculaRepository.save(pelicula);
-        return pelicula2.getPeliculaId();
+        return peliculaRepository.findByTituloIgnoreCase(peliculaDTO.getTitulo())
+                .map(Pelicula::getPeliculaId)
+                .orElseGet(() -> {
+                    Pelicula pelicula = PeliculaMapper.fromDTO(peliculaDTO);
+                    return peliculaRepository.save(pelicula).getPeliculaId();
+                });
     };
 
     @Override

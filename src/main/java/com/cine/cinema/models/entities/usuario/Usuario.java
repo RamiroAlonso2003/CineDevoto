@@ -25,6 +25,14 @@ public class Usuario {
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Rol rol = Rol.CLIENTE;
+
     // ID de Keycloak (puede ser UUID, pero lo pides como Date)
     @Column(name = "keycloak_id")
     private java.util.Date keycloakId;
