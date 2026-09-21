@@ -1,6 +1,7 @@
 package com.cine.cinema.models.entities.showtime;
 
 import com.cine.cinema.models.entities.pelicula.Pelicula;
+import com.cine.cinema.models.entities.reserva.Reserva;
 import com.cine.cinema.models.entities.sala.Sala;
 import lombok.*;
 import jakarta.persistence.*;
@@ -51,10 +52,11 @@ public class Showtime {
        MÉTODOS DE DOMINIO
        ========================== */
 
-    public void reservarAsiento(String fila, Integer numero) {
+    public AsientoReservado reservarAsiento(String fila, Integer numero) {
         validarAsientoNoReservado(fila, numero);
         AsientoReservado asiento = new AsientoReservado(fila, numero, this);
         asientosReservados.add(asiento);
+        return asiento;
     }
 
     private void validarAsientoNoReservado(String fila, Integer numero) {
@@ -65,14 +67,13 @@ public class Showtime {
         }
     }
 
-
-    public void cancelarReserva(String numeroAsiento) {
-        asientosReservados.removeIf(a -> a.getNumero().equals(numeroAsiento));
+    public void liberarAsientosDe(Reserva reserva) {
+        asientosReservados.removeIf(a -> reserva.equals(a.getReserva()));
     }
 
-    public boolean estaReservado(String numeroAsiento) {
+    public boolean estaReservado(String fila, Integer numero) {
         return asientosReservados.stream()
-                .anyMatch(a -> a.getNumero().equals(numeroAsiento));
+                .anyMatch(a -> a.getFila().equals(fila) && a.getNumero().equals(numero));
     }
 
 }
