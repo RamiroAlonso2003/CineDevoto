@@ -2,7 +2,7 @@
 
 .auth-page {
   min-height: 100vh;
-  background: var(--color-secondary);
+  background: #1a1d29;
 }
 
 .auth-container {
@@ -12,9 +12,9 @@
 }
 
 .auth-card {
-  background: #fff;
+  background: #23273a;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   padding: 2.5rem;
   width: 100%;
   max-width: 400px;
@@ -26,7 +26,7 @@
 .auth-title {
   font-family: var(--font-family-base);
   font-size: var(--font-size-xl);
-  color: #1a1a1a;
+  color: #fff;
   margin: 0 0 0.5rem;
   text-align: center;
   letter-spacing: 1px;
@@ -42,7 +42,7 @@
 .auth-switch {
   text-align: center;
   font-size: var(--font-size-sm);
-  color: #555;
+  color: #aaa;
   margin: 0.5rem 0 0;
 }
 

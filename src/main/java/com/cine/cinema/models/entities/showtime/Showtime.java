@@ -7,8 +7,8 @@ import lombok.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "showtime")
@@ -40,13 +40,16 @@ public class Showtime {
     @Column(name = "fin", nullable = false)
     private LocalDateTime fin;
 
+    // List, no Set: AsientoReservado usa @EqualsAndHashCode por id, y antes de
+    // persistir todos los asientos nuevos tienen id=null (serían "iguales"
+    // entre sí para un HashSet, que descartaría todos menos el primero).
     @OneToMany(
             mappedBy = "showtime",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     @Builder.Default
-    private Set<AsientoReservado> asientosReservados = new HashSet<AsientoReservado>();
+    private List<AsientoReservado> asientosReservados = new ArrayList<>();
 
     /* ==========================
        MÉTODOS DE DOMINIO
