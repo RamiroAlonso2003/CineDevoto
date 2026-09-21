@@ -7,5 +7,6 @@ public class UsuarioDto {
     private Long usuarioId;
     private String email;
     private String nombre;
+    private Rol rol;
     private java.util.Date keycloakId;
 }

@@ -6,6 +6,7 @@ import java.util.List;
 public interface IUsuarioService {
     List<Usuario> findAll();
     Usuario findById(Long id);
-    Usuario save(Usuario usuario);
+    Usuario findByEmail(String email);
+    Usuario registrar(Usuario usuario);
     void deleteById(Long id);
 }
