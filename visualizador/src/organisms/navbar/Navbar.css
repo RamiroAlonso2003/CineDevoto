@@ -28,3 +28,45 @@
 
   background-blend-mode: overlay;
 }
+
+.navbar-logo-link {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-auth {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.navbar-email {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.navbar-auth .nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.navbar-auth .nav-link:hover {
+  text-decoration: underline;
+}
+
+.navbar-link-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  color: white;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.navbar-link-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

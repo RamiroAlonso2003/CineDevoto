@@ -41,6 +41,11 @@
   font-weight: 600;
 }
 
+.movie-duration-badge {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
 /* Contenido principal */
 .movie-content {
   display: grid;

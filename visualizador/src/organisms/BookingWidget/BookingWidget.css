@@ -138,6 +138,36 @@
   color: white;
 }
 
+.showtime-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+  justify-content: center;
+}
+
+.showtime-estado {
+  color: #777;
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0;
+}
+
+.showtime-pill {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.showtime-pill:hover {
+  filter: brightness(1.1);
+}
+
 @media (max-width: 768px) {
   .booking-widget-modern {
     margin: 2rem 1rem;

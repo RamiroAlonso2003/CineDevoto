@@ -6,17 +6,12 @@ import './MovieDetails.css';
 const MovieDetails = ({ movie }) => {
   return (
     <div className="movie-details">
-      {/* Header con título, badges y rating */}
+      {/* Header con título, género y duración */}
       <div className="movie-header">
-        <h1 className="movie-title">{movie.title}</h1>
+        <h1 className="movie-title">{movie.titulo}</h1>
         <div className="movie-badges">
-          {movie.genres.map((genre, index) => (
-            <Badge key={index} variant="genre">{genre}</Badge>
-          ))}
-          <div className="movie-rating">
-            <span className="rating-star">★</span>
-            <span className="rating-value">{movie.score / 10}</span>
-          </div>
+          {movie.genero && <Badge variant="genre">{movie.genero.nombre}</Badge>}
+          <span className="movie-duration-badge">{movie.duracion} min</span>
         </div>
       </div>
 
@@ -25,7 +20,10 @@ const MovieDetails = ({ movie }) => {
         {/* Columna izquierda: Poster */}
         <div className="movie-left">
           <div className="movie-poster">
-            <img src={movie.posterImage} alt={movie.title} />
+            <img
+              src={movie.posterUrl || 'https://via.placeholder.com/300x450?text=Sin+imagen'}
+              alt={movie.titulo}
+            />
           </div>
           <a href="/" className="back-link">
             ← Volver a la cartelera
@@ -37,16 +35,13 @@ const MovieDetails = ({ movie }) => {
           {/* Sinopsis */}
           <div className="movie-info-section">
             <h2>Sinopsis</h2>
-            <p className="movie-synopsis">{movie.overview}</p>
-            
-            <div className="movie-credits">
-              <p><strong>Director:</strong> {movie.director || movie.creator?.name}</p>
-              <p><strong>Elenco:</strong> {movie.cast || 'Información no disponible'}</p>
-            </div>
+            <p className="movie-synopsis">
+              {movie.descripcion || 'Todavía no hay sinopsis cargada para esta película.'}
+            </p>
           </div>
 
           {/* Widget de reserva */}
-          <BookingWidget movieId={movie.id} />
+          <BookingWidget peliculaId={movie.peliculaId} />
         </div>
       </div>
     </div>

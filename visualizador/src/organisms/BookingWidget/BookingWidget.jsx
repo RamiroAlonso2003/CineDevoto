@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getShowtimesPorPelicula } from '../../api/showtimes';
 import './BookingWidget.css';
 
-function BookingWidget() {
+function BookingWidget({ peliculaId }) {
+  const navigate = useNavigate();
   const [fechaInicio, setFechaInicio] = useState(new Date());
   const [diaSeleccionado, setDiaSeleccionado] = useState(null);
   const [animando, setAnimando] = useState(false);
+  const [showtimes, setShowtimes] = useState([]);
+  const [cargandoShowtimes, setCargandoShowtimes] = useState(false);
 
   // Generar 7 días desde fechaInicio
   const generarDias = () => {
     const arrayDias = [];
     const nombresDias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    
+
     for (let i = 0; i < 7; i++) {
       const fecha = new Date(fechaInicio);
       fecha.setDate(fechaInicio.getDate() + i);
-      
+
       arrayDias.push({
         indice: i,
         numeroDia: fecha.getDate(),
@@ -26,7 +31,7 @@ function BookingWidget() {
         formateado: `${fecha.getDate()}/${fecha.getMonth() + 1}/${fecha.getFullYear()}`
       });
     }
-    
+
     return arrayDias;
   };
 
@@ -37,18 +42,18 @@ function BookingWidget() {
     if (!diaSeleccionado && dias.length > 0) {
       setDiaSeleccionado(dias[0]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Manejar selección de día
   const manejarClickDia = (infoDia) => {
     setDiaSeleccionado(infoDia);
-    console.log('Día seleccionado:', infoDia);
   };
 
   // Navegar entre días
   const desplazarDias = (direccion) => {
     setAnimando(true);
-    
+
     setTimeout(() => {
       const nuevaFecha = new Date(fechaInicio);
       if (direccion === 'izquierda') {
@@ -58,18 +63,29 @@ function BookingWidget() {
       }
       setFechaInicio(nuevaFecha);
       // No resetear selección, mantener el día seleccionado
-      
+
       setTimeout(() => setAnimando(false), 50);
     }, 150);
   };
 
-  // Effect para actualizar cuando cambia diaSeleccionado
+  // Buscar funciones del día seleccionado (solo si hay una película puntual)
   useEffect(() => {
-    if (diaSeleccionado) {
-      console.log('Día actualizado:', diaSeleccionado.formateado);
-      // Aquí puedes hacer fetch de horarios, películas, etc.
-    }
-  }, [diaSeleccionado]);
+    if (!diaSeleccionado || !peliculaId) return;
+
+    const f = diaSeleccionado.fechaCompleta;
+    const fechaISO = `${f.getFullYear()}-${String(f.getMonth() + 1).padStart(2, '0')}-${String(f.getDate()).padStart(2, '0')}`;
+
+    setCargandoShowtimes(true);
+    getShowtimesPorPelicula(peliculaId, fechaISO)
+      .then(setShowtimes)
+      .catch(() => setShowtimes([]))
+      .finally(() => setCargandoShowtimes(false));
+  }, [diaSeleccionado, peliculaId]);
+
+  const formatearHora = (inicio) => {
+    const fecha = new Date(inicio);
+    return fecha.toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' });
+  };
 
   return (
     <div className="booking-wrapper">
@@ -80,17 +96,17 @@ function BookingWidget() {
 
       <div className="booking-content">
         <p className="booking-subtitle">
-          Seleccione el DÍA y la PELÍCULA de su preferencia
+          Seleccione el DÍA {peliculaId ? 'y el horario' : 'y la PELÍCULA'} de su preferencia
         </p>
-        
+
         <div className="day-selector">
-          <button 
+          <button
             className="day-arrow"
             onClick={() => desplazarDias('izquierda')}
           >
             ‹
           </button>
-          
+
           <div className={`days-container ${animando ? 'animando' : ''}`}>
             {dias.map((infoDia, indice) => (
               <button
@@ -104,14 +120,33 @@ function BookingWidget() {
               </button>
             ))}
           </div>
-          
-          <button 
+
+          <button
             className="day-arrow"
             onClick={() => desplazarDias('derecha')}
           >
             ›
           </button>
         </div>
+
+        {peliculaId && (
+          <div className="showtime-list">
+            {cargandoShowtimes && <p className="showtime-estado">Buscando funciones…</p>}
+            {!cargandoShowtimes && showtimes.length === 0 && (
+              <p className="showtime-estado">No hay funciones ese día.</p>
+            )}
+            {!cargandoShowtimes && showtimes.map((s) => (
+              <button
+                key={s.showtimeId}
+                type="button"
+                className="showtime-pill"
+                onClick={() => navigate(`/showtime/${s.showtimeId}/asientos`)}
+              >
+                {formatearHora(s.inicio)}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
       </div>
     </div>
