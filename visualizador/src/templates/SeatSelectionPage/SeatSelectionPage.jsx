@@ -84,97 +84,103 @@ function SeatSelectionPage() {
 
   if (reservaConfirmada) {
     return (
-      <div className="seat-page">
+      <div>
         <Navbar />
-        <div className="seat-confirmacion">
-          <h1>¡Reserva confirmada!</h1>
-          <p>
+        <div className="page-wrap seatpage__confirmacion">
+          <p className="eyebrow">Listo</p>
+          <h1 className="seatpage__confirmacion-title">¡Reserva confirmada!</h1>
+          <p className="seatpage__confirmacion-copy">
             Asientos reservados:{' '}
             {listaSeleccionados.map((a) => `${a.fila}${a.numero}`).join(', ')}
           </p>
-          <Boton variant="primary" size="md" onClick={() => navigate('/')}>
-            Volver al inicio
-          </Boton>
+          <Boton variant="primary" onClick={() => navigate('/')}>Volver al inicio</Boton>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="seat-page">
+    <div>
       <Navbar />
 
-      <div className="seat-layout">
-        <div className="seat-main">
-          <h1 className="seat-title">Elegí tus asientos</h1>
-
-          {cargando && <p className="seat-estado">Cargando mapa de asientos…</p>}
-          {error && <p className="seat-estado seat-error">{error}</p>}
+      <div className="seatpage">
+        <div className="seatpage__map">
+          {cargando && <p>Cargando mapa de asientos…</p>}
+          {error && <p className="seatpage__error">{error}</p>}
 
           {!cargando && !error && (
             <>
-              <div className="seat-screen">
-                <div className="seat-screen-bar" />
-                <span>Pantalla</span>
-              </div>
+              <div className="screen" />
+              <p className="screen__cap">Pantalla</p>
 
-              <div className="seat-grid">
+              <div className="seatrows">
                 {filas.map(([fila, lista]) => (
-                  <div className="seat-row" key={fila}>
-                    <span className="seat-row-label">{fila}</span>
-                    {lista.map((asiento) => {
-                      const clave = claveAsiento(asiento.fila, asiento.numero);
-                      const estaSeleccionado = seleccionados.has(clave);
-                      const claseEstado = estaSeleccionado
-                        ? 'seleccionado'
-                        : asiento.estado === 'OCUPADO'
-                        ? 'ocupado'
-                        : 'disponible';
-                      return (
-                        <button
-                          key={clave}
-                          type="button"
-                          className={`seat-btn seat-${claseEstado}`}
-                          disabled={asiento.estado === 'OCUPADO'}
-                          onClick={() => toggleAsiento(asiento)}
-                          aria-label={`Asiento ${asiento.fila}${asiento.numero}, ${asiento.estado.toLowerCase()}`}
-                        >
-                          {asiento.numero}
-                        </button>
-                      );
-                    })}
-                    <span className="seat-row-label">{fila}</span>
+                  <div className="seatrow" key={fila}>
+                    <span className="seatrow__id">{fila}</span>
+                    <div className="seatrow__seats">
+                      {lista.map((asiento) => {
+                        const clave = claveAsiento(asiento.fila, asiento.numero);
+                        const estaSeleccionado = seleccionados.has(clave);
+                        return (
+                          <button
+                            key={clave}
+                            type="button"
+                            className="seat"
+                            aria-pressed={estaSeleccionado}
+                            disabled={asiento.estado === 'OCUPADO'}
+                            onClick={() => toggleAsiento(asiento)}
+                            aria-label={`Asiento ${asiento.fila}${asiento.numero}, ${asiento.estado.toLowerCase()}`}
+                          >
+                            {asiento.numero}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 ))}
               </div>
 
-              <div className="seat-legend">
-                <span className="seat-legend-item"><i className="seat-swatch disponible" /> Disponible</span>
-                <span className="seat-legend-item"><i className="seat-swatch seleccionado" /> Seleccionado</span>
-                <span className="seat-legend-item"><i className="seat-swatch ocupado" /> Ocupado</span>
+              <div className="legend">
+                <span className="legend__item">
+                  <button type="button" className="seat legend__chip" disabled={false} aria-pressed="false" tabIndex={-1} aria-hidden="true" />
+                  Disponible
+                </span>
+                <span className="legend__item">
+                  <button type="button" className="seat legend__chip" aria-pressed="true" tabIndex={-1} aria-hidden="true" />
+                  Seleccionado
+                </span>
+                <span className="legend__item">
+                  <button type="button" className="seat legend__chip" disabled tabIndex={-1} aria-hidden="true" />
+                  Ocupado
+                </span>
               </div>
             </>
           )}
         </div>
 
-        <aside className="seat-sidebar">
-          <h2>Tu selección</h2>
+        <aside className="seatpage__panel">
+          <h2 className="eyebrow">Tu selección</h2>
 
           {listaSeleccionados.length === 0 ? (
-            <p className="seat-sidebar-vacio">Tocá un asiento disponible para agregarlo.</p>
+            <p className="seatpage__vacio">Tocá un asiento disponible para agregarlo.</p>
           ) : (
-            <ul className="seat-sidebar-lista">
+            <div>
               {listaSeleccionados.map((a) => (
-                <li key={claveAsiento(a.fila, a.numero)}>Asiento {a.fila}{a.numero}</li>
+                <div className="summary__row" key={claveAsiento(a.fila, a.numero)}>
+                  <span>Asiento {a.fila}{a.numero}</span>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
 
-          <p className="seat-sidebar-total">{listaSeleccionados.length} asiento(s) seleccionado(s)</p>
+          <div className="summary__total">
+            <span>Total</span>
+            <span>{listaSeleccionados.length} asiento(s)</span>
+          </div>
 
           <Boton
             variant="primary"
-            size="md"
+            block
             disabled={listaSeleccionados.length === 0 || confirmando}
             onClick={confirmarReserva}
           >

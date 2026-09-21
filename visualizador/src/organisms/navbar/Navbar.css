@@ -1,72 +1,19 @@
+/* organisms/Navbar.css */
 .navbar {
-  height: 72px;
-  padding: 0 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  color: rgb(255, 255, 255);
-
-  background-image:
-    linear-gradient(
-      to right,
-      rgba(0, 145, 134, 1), 
-      rgb(0, 92, 84)
-      
-     /* rgba(10, 10, 10, 0.95),
-      rgba(20, 20, 20, 0.9) */
-    ),
-    url("./topography.svg");
-
-  background-size:
-    cover,
-    800px;
-
-  background-repeat:
-    no-repeat,
-    repeat;
-
-  background-blend-mode: overlay;
+  position: sticky; top: 0; z-index: 20;
+  background-color: var(--teal-dark);
+  background-image: var(--grad-brand);
+  border-bottom: 2px solid rgba(26,25,24,0.35);
 }
-
-.navbar-logo-link {
-  display: flex;
-  align-items: center;
+.navbar__inner {
+  max-width: var(--page); margin: 0 auto; padding: 0 var(--gutter);
+  height: 68px; display: flex; align-items: center; gap: var(--sp-6);
 }
-
-.navbar-auth {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.navbar-email {
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-.navbar-auth .nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.9rem;
-}
-
-.navbar-auth .nav-link:hover {
-  text-decoration: underline;
-}
-
-.navbar-link-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 6px;
-  color: white;
-  padding: 0.4rem 0.9rem;
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: background 0.2s;
-}
-
-.navbar-link-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
+.navbar__brand { display: flex; align-items: center; gap: var(--sp-3); cursor: pointer; }
+.navbar__mark { width: 22px; height: 22px; background: var(--ink); }
+.navbar__name { display: flex; flex-direction: column; line-height: 1; }
+.navbar__name strong { font-weight: 800; font-size: 15px; letter-spacing: 0.02em; }
+.navbar__name span { font-weight: 600; font-size: var(--fs-eyebrow); letter-spacing: 0.22em; color: rgba(243,242,242,0.75); }
+.navbar__spacer { flex: 1; }
+.navbar__actions { display: flex; align-items: center; gap: var(--sp-5); }
+.navbar__user { font-size: var(--fs-meta); color: rgba(243,242,242,0.8); }

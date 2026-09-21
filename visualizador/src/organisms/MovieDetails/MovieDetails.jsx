@@ -1,48 +1,35 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Badge from '../../Atoms/badge/Badge';
 import BookingWidget from '../BookingWidget/BookingWidget';
 import './MovieDetails.css';
 
 const MovieDetails = ({ movie }) => {
   return (
-    <div className="movie-details">
-      {/* Header con título, género y duración */}
-      <div className="movie-header">
-        <h1 className="movie-title">{movie.titulo}</h1>
-        <div className="movie-badges">
-          {movie.genero && <Badge variant="genre">{movie.genero.nombre}</Badge>}
-          <span className="movie-duration-badge">{movie.duracion} min</span>
-        </div>
+    <div className="detail">
+      <div className="detail__poster">
+        <img
+          src={movie.posterUrl || undefined}
+          alt={movie.titulo}
+          className="detail__poster-img"
+        />
       </div>
 
-      {/* Contenido principal */}
-      <div className="movie-content">
-        {/* Columna izquierda: Poster */}
-        <div className="movie-left">
-          <div className="movie-poster">
-            <img
-              src={movie.posterUrl || 'https://via.placeholder.com/300x450?text=Sin+imagen'}
-              alt={movie.titulo}
-            />
-          </div>
-          <a href="/" className="back-link">
-            ← Volver a la cartelera
-          </a>
+      <div className="detail__info">
+        <Link to="/" className="detail__back">← Volver a la cartelera</Link>
+
+        <h1 className="detail__title">{movie.titulo}</h1>
+
+        <div className="detail__tags">
+          {movie.genero && <Badge>{movie.genero.nombre}</Badge>}
+          <span className="detail__duration">{movie.duracion} min</span>
         </div>
 
-        {/* Columna derecha: Info y Widget */}
-        <div className="movie-right">
-          {/* Sinopsis */}
-          <div className="movie-info-section">
-            <h2>Sinopsis</h2>
-            <p className="movie-synopsis">
-              {movie.descripcion || 'Todavía no hay sinopsis cargada para esta película.'}
-            </p>
-          </div>
+        <p className="detail__synopsis">
+          {movie.descripcion || 'Todavía no hay sinopsis cargada para esta película.'}
+        </p>
 
-          {/* Widget de reserva */}
-          <BookingWidget peliculaId={movie.peliculaId} />
-        </div>
+        <BookingWidget peliculaId={movie.peliculaId} />
       </div>
     </div>
   );

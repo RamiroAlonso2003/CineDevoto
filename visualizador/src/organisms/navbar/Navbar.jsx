@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import LogoIcon from "../../Atoms/logoIcon/logoIcon";
 import { useAuth } from "../../context/AuthContext";
 
 function Navbar() {
@@ -8,24 +7,32 @@ function Navbar() {
 
   return (
     <header className="navbar">
-      <Link to="/" className="navbar-logo-link">
-        <LogoIcon></LogoIcon>
-      </Link>
+      <div className="navbar__inner">
+        <Link to="/" className="navbar__brand">
+          <span className="navbar__mark" />
+          <span className="navbar__name">
+            <strong>CINE</strong>
+            <span>DEVOTO</span>
+          </span>
+        </Link>
 
-      <div className="navbar-auth">
-        {isAuthenticated ? (
-          <>
-            <span className="navbar-email">{email}</span>
-            <button type="button" className="navbar-link-btn" onClick={logout}>
-              Cerrar sesión
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="nav-link">Iniciar sesión</Link>
-            <Link to="/register" className="nav-link">Registrarme</Link>
-          </>
-        )}
+        <div className="navbar__spacer" />
+
+        <div className="navbar__actions">
+          {isAuthenticated ? (
+            <>
+              <span className="navbar__user">{email}</span>
+              <button type="button" className="boton boton--on-brand" onClick={logout}>
+                Cerrar sesión
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="navbar__user">Iniciar sesión</Link>
+              <Link to="/register" className="boton boton--on-brand">Registrarme</Link>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );

@@ -1,22 +1,13 @@
+/* Atoms/Input.css */
 .input {
   width: 100%;
-  padding: 0.875rem 1rem;
-  font-size: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  transition: all 0.3s ease;
-  font-family: inherit;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  padding: 12px 14px;
 }
-
-.input:focus {
-  outline: none;
-  border-color: rgba(0, 145, 134, 0.8);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 0 3px rgba(0, 145, 134, 0.1);
-}
-
-.input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
+.input::placeholder { color: var(--ink-35); }
+.input:focus-visible { border-color: var(--accent); }

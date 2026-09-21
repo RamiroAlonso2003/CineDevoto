@@ -2,14 +2,24 @@
   min-height: 100vh;
 }
 
+.home-page__cartelera {
+  padding-top: var(--sp-12);
+  padding-bottom: 96px;
+}
+
+.home-page__cartelera .eyebrow {
+  color: var(--ink-55);
+  margin-bottom: var(--sp-6);
+}
+
 .cartelera-estado {
   grid-column: 1 / -1;
   text-align: center;
-  color: #666;
-  font-size: 1rem;
+  color: var(--ink-55);
+  font-size: var(--fs-body);
   padding: 2rem 0;
 }
 
 .cartelera-error {
-  color: #c0392b;
+  color: var(--accent);
 }

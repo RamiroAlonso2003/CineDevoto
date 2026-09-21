@@ -32,12 +32,15 @@ function RegisterPage() {
   };
 
   return (
-    <div className="auth-page">
+    <div>
       <Navbar />
-      <div className="auth-container">
-        <form className="auth-card" onSubmit={handleSubmit}>
-          <h1 className="auth-title">Crear cuenta</h1>
+      <div className="authpage">
+        <div>
+          <h1 className="authpage__title">Creá tu cuenta</h1>
+          <p className="authpage__blurb">Registrate para elegir asientos y guardar tus reservas.</p>
+        </div>
 
+        <form className="authcard" onSubmit={handleSubmit}>
           <FormField label="Nombre" htmlFor="register-nombre" required>
             <Input
               type="text"
@@ -60,7 +63,7 @@ function RegisterPage() {
             />
           </FormField>
 
-          <FormField label="Contraseña" htmlFor="register-password" required>
+          <FormField label="Contraseña" htmlFor="register-password" required last>
             <Input
               type="password"
               name="password"
@@ -71,13 +74,13 @@ function RegisterPage() {
             />
           </FormField>
 
-          {error && <p className="auth-error">{error}</p>}
+          {error && <p className="authcard__error">{error}</p>}
 
-          <Boton type="submit" variant="primary" size="md" disabled={enviando}>
+          <Boton type="submit" variant="primary" block disabled={enviando}>
             {enviando ? 'Creando cuenta…' : 'Registrarme'}
           </Boton>
 
-          <p className="auth-switch">
+          <p className="authcard__switch">
             ¿Ya tenés cuenta? <Link to="/login">Iniciá sesión</Link>
           </p>
         </form>

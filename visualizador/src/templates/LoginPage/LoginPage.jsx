@@ -33,12 +33,15 @@ function LoginPage() {
   };
 
   return (
-    <div className="auth-page">
+    <div>
       <Navbar />
-      <div className="auth-container">
-        <form className="auth-card" onSubmit={handleSubmit}>
-          <h1 className="auth-title">Iniciar sesión</h1>
+      <div className="authpage">
+        <div>
+          <h1 className="authpage__title">Iniciá sesión</h1>
+          <p className="authpage__blurb">Accedé para reservar tus entradas y ver tus funciones.</p>
+        </div>
 
+        <form className="authcard" onSubmit={handleSubmit}>
           <FormField label="Email" htmlFor="login-email" required>
             <Input
               type="email"
@@ -50,7 +53,7 @@ function LoginPage() {
             />
           </FormField>
 
-          <FormField label="Contraseña" htmlFor="login-password" required>
+          <FormField label="Contraseña" htmlFor="login-password" required last>
             <Input
               type="password"
               name="password"
@@ -61,13 +64,13 @@ function LoginPage() {
             />
           </FormField>
 
-          {error && <p className="auth-error">{error}</p>}
+          {error && <p className="authcard__error">{error}</p>}
 
-          <Boton type="submit" variant="primary" size="md" disabled={enviando}>
+          <Boton type="submit" variant="primary" block disabled={enviando}>
             {enviando ? 'Ingresando…' : 'Ingresar'}
           </Boton>
 
-          <p className="auth-switch">
+          <p className="authcard__switch">
             ¿No tenés cuenta? <Link to="/register">Registrate</Link>
           </p>
         </form>

@@ -4,7 +4,7 @@ function Label({ children, htmlFor, required = false }) {
   return (
     <label className="label" htmlFor={htmlFor}>
       {children}
-      {required && <span className="label-required">*</span>}
+      {required && <span className="label__req">*</span>}
     </label>
   );
 }

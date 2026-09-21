@@ -1,6 +1,5 @@
 .movie-detail-page {
   min-height: 100vh;
-  background-color: #1a1d29;
 }
 
 .movie-not-found {
@@ -8,9 +7,11 @@
   justify-content: center;
   align-items: center;
   height: 60vh;
-  color: white;
+  color: var(--ink);
 }
 
 .movie-not-found h2 {
-  font-size: 2rem;
+  font-size: var(--fs-h1);
+  font-weight: 800;
+  margin: 0;
 }

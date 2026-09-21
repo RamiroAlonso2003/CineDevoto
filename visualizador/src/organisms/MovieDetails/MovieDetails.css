@@ -1,143 +1,39 @@
-.movie-details {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px 40px;
-  color: white;
+/* organisms/MovieDetails.css */
+.detail {
+  max-width: var(--page); margin: 0 auto; padding: var(--sp-12) var(--gutter) 96px;
+  display: flex; flex-wrap: wrap; gap: var(--sp-12); align-items: flex-start;
 }
+.detail__poster { flex: 0 1 300px; min-width: 200px; }
+.detail__poster-img {
+  width: 100%; display: block; aspect-ratio: 2 / 3; object-fit: cover;
+  background-color: var(--surface-2); filter: grayscale(1) contrast(1.08);
+  border: 1px solid var(--line);
+}
+.detail__info   { flex: 1 1 420px; min-width: 0; }   /* NO grid + span 2: se cae de fila */
+.detail__back   { display: inline-block; margin-bottom: var(--sp-4); font-size: var(--fs-meta); color: var(--ink-55); text-decoration: none; }
+.detail__back:hover { color: var(--ink); }
+.detail__title  { font-weight: 800; font-size: var(--fs-h1); line-height: 0.99; letter-spacing: -0.025em; margin: 0 0 var(--sp-4); text-wrap: pretty; }
+.detail__tags   { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 28px; }
+.detail__duration { font-size: var(--fs-meta); color: var(--ink-55); }
+.detail__synopsis { margin: 0 0 var(--sp-12); max-width: 62ch; font-size: var(--fs-body-lg); color: rgba(243,242,242,0.75); }
 
-/* Header */
-.movie-header {
-  margin-bottom: 30px;
+/* BookingWidget: días + horarios */
+.daypill {
+  flex: 0 0 92px; scroll-snap-align: start;
+  text-align: left; cursor: pointer;
+  border: 1px solid var(--line-strong); border-radius: var(--radius);
+  padding: 12px 14px; background: rgba(17,16,15,0.22); color: var(--ink);
+  font-family: var(--font);
 }
+.daypill[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.daypill__dow { font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.8; white-space: nowrap; }
+.daypill__num { font-weight: 800; font-size: 26px; line-height: 1.1; }
+.daypill__mon { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.65; }
 
-.movie-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 0 0 15px 0;
-  letter-spacing: -0.5px;
+.times { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: var(--sp-8); }
+.time {
+  cursor: pointer; font-family: var(--font); font-weight: 800; font-size: 14px;
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 18px;
+  background: rgba(243,242,242,0.05); color: var(--ink);
 }
-
-.movie-badges {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.movie-rating {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  margin-left: 10px;
-}
-
-.rating-star {
-  color: #ffd700;
-  font-size: 1.5rem;
-}
-
-.rating-value {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.movie-duration-badge {
-  color: #ccc;
-  font-size: 0.9rem;
-}
-
-/* Contenido principal */
-.movie-content {
-  display: grid;
-  grid-template-columns: 350px minmax(0, 1fr);
-  gap: 40px;
-  align-items: start;
-}
-
-/* Columna izquierda */
-.movie-left {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.movie-poster {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.movie-poster img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.back-link {
-  color: #888;
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: color 0.2s;
-}
-
-.back-link:hover {
-  color: #fff;
-}
-
-/* Columna derecha */
-.movie-right {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-.movie-info-section h2 {
-  font-size: 1.5rem;
-  margin: 0 0 15px 0;
-  color: white;
-}
-
-.movie-synopsis {
-  line-height: 1.6;
-  color: #ccc;
-  margin-bottom: 20px;
-}
-
-.movie-credits {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.movie-credits p {
-  margin: 0;
-  color: #ccc;
-  line-height: 1.5;
-}
-
-.movie-credits strong {
-  color: white;
-  margin-right: 8px;
-}
-
-/* Responsive */
-@media (max-width: 968px) {
-  .movie-content {
-    grid-template-columns: 1fr;
-  }
-  
-  .movie-left {
-    max-width: 350px;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 640px) {
-  .movie-details {
-    padding: 20px;
-  }
-  
-  .movie-title {
-    font-size: 2rem;
-  }
-}
+.time[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }

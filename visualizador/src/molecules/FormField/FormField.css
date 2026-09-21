@@ -1,7 +1,7 @@
-.form-field {
-  margin-bottom: 1.5rem;
+.field {
+  margin-bottom: var(--sp-5);
 }
 
-.form-field:last-child {
-  margin-bottom: 0;
+.field--last {
+  margin-bottom: 28px;
 }

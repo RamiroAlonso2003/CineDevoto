@@ -1,57 +1,13 @@
-@import "../../styles.css";
-
-.auth-page {
-  min-height: 100vh;
-  background: #1a1d29;
+/* templates/LoginPage.css — lo mismo sirve para RegisterPage */
+.authpage {
+  max-width: var(--page); margin: 0 auto; padding: 72px var(--gutter) 120px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 56px; align-items: start;
 }
-
-.auth-container {
-  display: flex;
-  justify-content: center;
-  padding: 4rem 1rem;
-}
-
-.auth-card {
-  background: #23273a;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  padding: 2.5rem;
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.1rem;
-}
-
-.auth-title {
-  font-family: var(--font-family-base);
-  font-size: var(--font-size-xl);
-  color: #fff;
-  margin: 0 0 0.5rem;
-  text-align: center;
-  letter-spacing: 1px;
-}
-
-.auth-error {
-  color: var(--color-danger);
-  font-size: var(--font-size-sm);
-  margin: 0;
-  text-align: center;
-}
-
-.auth-switch {
-  text-align: center;
-  font-size: var(--font-size-sm);
-  color: #aaa;
-  margin: 0.5rem 0 0;
-}
-
-.auth-switch a {
-  color: var(--color-primary);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.auth-switch a:hover {
-  text-decoration: underline;
-}
+.authpage__title { font-weight: 800; font-size: clamp(34px, 4.4vw, 52px); line-height: 0.99; letter-spacing: -0.025em; margin: 0 0 var(--sp-4); text-wrap: pretty; }
+.authpage__blurb { margin: 0; max-width: 34ch; font-size: var(--fs-body-lg); color: rgba(243,242,242,0.6); }
+.authcard { border: 1px solid var(--line); background: var(--surface); padding: var(--sp-8); }
+.authcard .field { margin-bottom: var(--sp-5); }
+.authcard .field--last { margin-bottom: 28px; }
+.authcard__error { color: var(--accent); font-size: var(--fs-meta); margin: -8px 0 var(--sp-5); }
+.authcard__switch { font-size: var(--fs-meta); color: rgba(243,242,242,0.6); }

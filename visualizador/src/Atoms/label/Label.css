@@ -1,14 +1,11 @@
+/* Atoms/Label.css */
 .label {
   display: block;
-  font-size: 0.875rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 0.5rem;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--ink-55);
+  margin-bottom: 6px;
 }
-
-.label-required {
-  color: rgba(0, 145, 134, 1);
-  margin-left: 0.25rem;
-}
+.label__req { color: var(--accent); }

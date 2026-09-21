@@ -1,21 +1,27 @@
+import { useNavigate } from 'react-router-dom';
+import Boton from '../../Atoms/boton/boton';
 import './Hero.css';
 
 function Hero() {
+  const navigate = useNavigate();
+
+  const irACartelera = () => {
+    document.getElementById('cartelera')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="hero">
-      <div className="hero-content">
-        <h1 className="hero-title">
-          Bienvenido a <span className="hero-highlight">Cinema Devoto</span>
-        </h1>
-        <p className="hero-subtitle">
-          La mejor experiencia cinematográfica en el corazón de la ciudad
+      <div className="hero__inner">
+        <p className="hero__kicker">Cine en el corazón de la ciudad</p>
+        <h1 className="hero__title">Vení a vivir el cine como se debe</h1>
+        <p className="hero__copy">
+          Pantallas grandes, butacas cómodas y la cartelera actualizada todas las semanas.
         </p>
-        <div className="hero-buttons">
-          <button className="hero-btn hero-btn-primary">Ver Cartelera</button>
-          <button className="hero-btn hero-btn-secondary">Próximos Estrenos</button>
+        <div className="hero__actions">
+          <Boton variant="primary" onClick={irACartelera}>Ver cartelera</Boton>
+          <Boton variant="ghost" onClick={() => navigate('/register')}>Registrarme</Boton>
         </div>
       </div>
-      <div className="hero-overlay"></div>
     </section>
   );
 }
