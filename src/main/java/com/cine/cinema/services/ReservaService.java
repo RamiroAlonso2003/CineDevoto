@@ -62,7 +62,7 @@ public class ReservaService implements IReservaService {
 
     @Override
     public List<ReservaDto> listarReservas() {
-        return reservaRepository.findAll().stream()
+        return reservaRepository.findByUsuario(usuarioAutenticado()).stream()
                 .map(reservaMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -71,6 +71,7 @@ public class ReservaService implements IReservaService {
     public ReservaDto obtenerReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id.intValue())
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        validarDueño(reserva);
         return reservaMapper.toDto(reserva);
     }
 
@@ -79,10 +80,17 @@ public class ReservaService implements IReservaService {
     public void cancelarReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id.intValue())
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        validarDueño(reserva);
 
         reserva.getShowtime().liberarAsientosDe(reserva);
         reserva.setEstado("CANCELADA");
         reservaRepository.save(reserva);
+    }
+
+    private void validarDueño(Reserva reserva) {
+        if (!reserva.getUsuario().equals(usuarioAutenticado())) {
+            throw new IllegalStateException("No podés operar sobre una reserva que no es tuya");
+        }
     }
 }
 
