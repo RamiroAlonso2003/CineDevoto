@@ -7,6 +7,7 @@ import MovieDetailPage from './templates/MovieDetailPage/MovieDetailPage';
 import LoginPage from './templates/LoginPage/LoginPage';
 import RegisterPage from './templates/RegisterPage/RegisterPage';
 import SeatSelectionPage from './templates/SeatSelectionPage/SeatSelectionPage';
+import NotFoundPage from './templates/NotFoundPage/NotFoundPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
       </Router>

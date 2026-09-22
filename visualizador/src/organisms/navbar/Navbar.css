@@ -16,4 +16,12 @@
 .navbar__name span { font-weight: 600; font-size: var(--fs-eyebrow); letter-spacing: 0.22em; color: rgba(243,242,242,0.75); }
 .navbar__spacer { flex: 1; }
 .navbar__actions { display: flex; align-items: center; gap: var(--sp-5); }
-.navbar__user { font-size: var(--fs-meta); color: rgba(243,242,242,0.8); }
+.navbar__user { font-size: var(--fs-meta); color: rgba(243,242,242,0.8); white-space: nowrap; }
+
+@media (max-width: 640px) {
+  .navbar__inner { padding: 0 var(--sp-4); gap: var(--sp-3); }
+  .navbar__name span { display: none; }
+  .navbar__actions { gap: var(--sp-3); }
+  .navbar__user { font-size: 12px; }
+  .boton--on-brand { padding: 7px 10px; font-size: 12px; }
+}
