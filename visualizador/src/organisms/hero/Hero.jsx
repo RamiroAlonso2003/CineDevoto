@@ -1,21 +1,24 @@
+import Boton from '../../Atoms/boton/boton';
 import './Hero.css';
 
 function Hero() {
+  const irACartelera = () => {
+    document.getElementById('cartelera')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="hero">
-      <div className="hero-content">
-        <h1 className="hero-title">
-          Bienvenido a <span className="hero-highlight">Cinema Devoto</span>
-        </h1>
-        <p className="hero-subtitle">
-          La mejor experiencia cinematográfica en el corazón de la ciudad
+      <div className="hero__inner">
+        <h1 className="hero__title">Bienvenido a Cinema Devoto</h1>
+        <p className="hero__copy">
+          La mejor experiencia cinematográfica en el corazón de la ciudad. Seis salas,
+          proyección láser, sonido Atmos.
         </p>
-        <div className="hero-buttons">
-          <button className="hero-btn hero-btn-primary">Ver Cartelera</button>
-          <button className="hero-btn hero-btn-secondary">Próximos Estrenos</button>
+        <div className="hero__actions">
+          <Boton variant="primary" onClick={irACartelera}>Ver cartelera</Boton>
+          <Boton variant="ghost">Próximos estrenos</Boton>
         </div>
       </div>
-      <div className="hero-overlay"></div>
     </section>
   );
 }

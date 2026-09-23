@@ -1,13 +1,14 @@
 package com.cine.cinema.models.entities.showtime;
 
 import com.cine.cinema.models.entities.pelicula.Pelicula;
+import com.cine.cinema.models.entities.reserva.Reserva;
 import com.cine.cinema.models.entities.sala.Sala;
 import lombok.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "showtime")
@@ -39,22 +40,26 @@ public class Showtime {
     @Column(name = "fin", nullable = false)
     private LocalDateTime fin;
 
+    // List, no Set: AsientoReservado usa @EqualsAndHashCode por id, y antes de
+    // persistir todos los asientos nuevos tienen id=null (serían "iguales"
+    // entre sí para un HashSet, que descartaría todos menos el primero).
     @OneToMany(
             mappedBy = "showtime",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     @Builder.Default
-    private Set<AsientoReservado> asientosReservados = new HashSet<AsientoReservado>();
+    private List<AsientoReservado> asientosReservados = new ArrayList<>();
 
     /* ==========================
        MÉTODOS DE DOMINIO
        ========================== */
 
-    public void reservarAsiento(String fila, Integer numero) {
+    public AsientoReservado reservarAsiento(String fila, Integer numero) {
         validarAsientoNoReservado(fila, numero);
         AsientoReservado asiento = new AsientoReservado(fila, numero, this);
         asientosReservados.add(asiento);
+        return asiento;
     }
 
     private void validarAsientoNoReservado(String fila, Integer numero) {
@@ -65,14 +70,13 @@ public class Showtime {
         }
     }
 
-
-    public void cancelarReserva(String numeroAsiento) {
-        asientosReservados.removeIf(a -> a.getNumero().equals(numeroAsiento));
+    public void liberarAsientosDe(Reserva reserva) {
+        asientosReservados.removeIf(a -> reserva.equals(a.getReserva()));
     }
 
-    public boolean estaReservado(String numeroAsiento) {
+    public boolean estaReservado(String fila, Integer numero) {
         return asientosReservados.stream()
-                .anyMatch(a -> a.getNumero().equals(numeroAsiento));
+                .anyMatch(a -> a.getFila().equals(fila) && a.getNumero().equals(numero));
     }
 
 }

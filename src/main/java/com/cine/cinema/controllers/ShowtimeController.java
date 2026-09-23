@@ -1,5 +1,6 @@
 package com.cine.cinema.controllers;
 
+import com.cine.cinema.models.entities.showtime.AsientoEstadoDto;
 import com.cine.cinema.models.entities.showtime.Showtime;
 import com.cine.cinema.models.entities.showtime.ShowtimeDto;
 
@@ -31,6 +32,12 @@ public class ShowtimeController {
     public Integer crearShowtime(@RequestBody ShowtimeDto showtimeDto) {
         logger.info("Solicitud para crear un nuevo showtime");
         return showtimeService.save(showtimeDto).getShowtimeId();
+    }
+
+    @GetMapping("/{id}/asientos")
+    public List<AsientoEstadoDto> obtenerAsientos(@PathVariable Integer id) {
+        logger.info("Solicitud para obtener el mapa de asientos del showtime {}", id);
+        return showtimeService.obtenerMapaAsientos(id);
     }
 
     @GetMapping("/{id}")

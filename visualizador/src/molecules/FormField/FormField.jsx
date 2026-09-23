@@ -1,14 +1,15 @@
 import './FormField.css';
 import Label from '../../Atoms/label/Label';
 
-function FormField({ 
-  label, 
-  children, 
-  htmlFor, 
-  required = false 
+function FormField({
+  label,
+  children,
+  htmlFor,
+  required = false,
+  last = false
 }) {
   return (
-    <div className="form-field">
+    <div className={`field${last ? ' field--last' : ''}`}>
       {label && (
         <Label htmlFor={htmlFor} required={required}>
           {label}

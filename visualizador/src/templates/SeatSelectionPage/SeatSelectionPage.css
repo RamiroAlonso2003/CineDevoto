@@ -1,0 +1,41 @@
+/* templates/SeatSelectionPage.css */
+.seatpage {
+  max-width: var(--page); margin: 0 auto; padding: var(--sp-12) var(--gutter) 96px;
+  display: flex; flex-wrap: wrap; gap: var(--sp-12); align-items: flex-start;
+}
+.seatpage__map   { flex: 1 1 460px; min-width: 0; }
+.seatpage__panel { flex: 0 1 320px; min-width: 260px; border: 1px solid var(--line); background: var(--surface); padding: 28px; }
+
+.screen      { height: 6px; background: var(--ink); margin-bottom: var(--sp-2); }
+.screen__cap { font-weight: 600; font-size: var(--fs-eyebrow); letter-spacing: 0.3em; color: var(--ink-55); margin-bottom: var(--sp-8); }
+
+.seatrows { display: flex; flex-direction: column; gap: var(--sp-2); }
+.seatrow  { display: flex; align-items: center; gap: var(--sp-2); }
+.seatrow__id { width: 18px; font-weight: 800; font-size: 12px; color: rgba(243,242,242,0.5); }
+.seatrow__seats { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+
+.seat {
+  width: 44px; height: 44px;              /* nunca menos: es el target táctil */
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: transparent; color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px;
+  cursor: pointer;
+}
+.seat[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.seat:disabled { background: var(--surface-3); border-color: var(--surface-3); color: var(--ink-35); cursor: not-allowed; opacity: 1; }
+
+.legend { display: flex; gap: var(--sp-6); flex-wrap: wrap; font-size: 12px; color: rgba(243,242,242,0.6); }
+.legend__item { display: flex; align-items: center; gap: var(--sp-2); }
+.legend__chip { width: 16px; height: 16px; }
+
+.summary__row { display: flex; justify-content: space-between; gap: var(--sp-3); padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.summary__total { display: flex; justify-content: space-between; gap: var(--sp-3); padding: 18px 0 22px; font-weight: 800; }
+
+.seatpage__vacio { font-size: var(--fs-meta); color: var(--ink-55); }
+.seatpage__error { color: var(--accent); }
+.seatpage__confirmacion { padding-top: var(--sp-12); padding-bottom: 96px; }
+.seatpage__confirmacion-title {
+  font-weight: 800; font-size: var(--fs-h1); line-height: 0.99;
+  letter-spacing: -0.025em; margin: var(--sp-3) 0 var(--sp-4);
+}
+.seatpage__confirmacion-copy { margin: 0 0 var(--sp-8); font-size: var(--fs-body-lg); color: var(--ink-70); }

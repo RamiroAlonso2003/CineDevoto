@@ -1,0 +1,13 @@
+.notfound {
+  padding-top: var(--sp-16);
+  padding-bottom: 140px;
+}
+
+.notfound__title {
+  font-weight: 800; font-size: var(--fs-h1); line-height: 0.99;
+  letter-spacing: -0.025em; margin: var(--sp-3) 0 var(--sp-4);
+}
+
+.notfound__copy {
+  margin: 0 0 var(--sp-8); max-width: 46ch; font-size: var(--fs-body-lg); color: var(--ink-70);
+}

@@ -1,16 +1,17 @@
 import "./boton.css";
 
-function Button({
+function Boton({
   variant = "primary",
-  size = "md",
+  block = false,
   children,
   onClick,
   disabled = false,
   type = "button"
 }) {
+  const className = `boton boton--${variant}${block ? " boton--block" : ""}`;
   return (
     <button
-      className={`btn btn-${variant} btn-${size}`}
+      className={className}
       onClick={onClick}
       disabled={disabled}
       type={type}
@@ -20,4 +21,4 @@ function Button({
   );
 }
 
-export default Button;
+export default Boton;

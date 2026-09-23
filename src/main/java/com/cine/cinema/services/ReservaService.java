@@ -4,6 +4,7 @@ package com.cine.cinema.services;
 import com.cine.cinema.models.entities.reserva.Reserva;
 import com.cine.cinema.models.entities.reserva.ReservaDto;
 import com.cine.cinema.mapper.ReservaMapper;
+import com.cine.cinema.models.entities.showtime.AsientoReservado;
 import com.cine.cinema.models.entities.showtime.Showtime;
 import com.cine.cinema.models.entities.usuario.Usuario;
 import com.cine.cinema.models.repository.ReservaRepository;
@@ -11,7 +12,9 @@ import com.cine.cinema.models.repository.ShowtimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,24 +30,28 @@ public class ReservaService implements IReservaService {
     private IUsuarioService usuarioService;
 
     @Override
+    @Transactional
     public ReservaDto crearReserva(ReservaDto reservaDto) {
         Showtime showtime = showtimeRepository.findById(Long.valueOf(reservaDto.getShowtime().getShowtimeId()))
                 .orElseThrow(() -> new RuntimeException("Showtime no encontrado"));
-        Reserva reserva = reservaMapper.fromDto(reservaDto);
-        reserva.setShowtime(showtime);
-        // El usuario de la reserva es siempre el autenticado (vía JWT), nunca
-        // el que venga en el body: si no, cualquiera podría reservar "como" otro.
-        reserva.setUsuario(usuarioAutenticado());
 
-        // Reservar los asientos solicitados
+        Reserva reserva = Reserva.builder()
+                .showtime(showtime)
+                // El usuario de la reserva es siempre el autenticado (vía JWT), nunca
+                // el que venga en el body: si no, cualquiera podría reservar "como" otro.
+                .usuario(usuarioAutenticado())
+                .fechaReserva(LocalDateTime.now())
+                .estado("CONFIRMADA")
+                .build();
+        Reserva guardada = reservaRepository.save(reserva);
+
         if (reservaDto.getAsientos() != null) {
-            for (var asiento : reservaDto.getAsientos()) {
-                // Se asume que reservarAsiento acepta fila y número
-               showtime.reservarAsiento(asiento.getFila(), asiento.getNumero());
+            for (var asientoDto : reservaDto.getAsientos()) {
+                AsientoReservado asiento = showtime.reservarAsiento(asientoDto.getFila(), asientoDto.getNumero());
+                asiento.asignarReserva(guardada);
             }
         }
 
-        Reserva guardada = reservaRepository.save(reserva);
         return reservaMapper.toDto(guardada);
     }
 
@@ -55,7 +62,7 @@ public class ReservaService implements IReservaService {
 
     @Override
     public List<ReservaDto> listarReservas() {
-        return reservaRepository.findAll().stream()
+        return reservaRepository.findByUsuario(usuarioAutenticado()).stream()
                 .map(reservaMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -64,15 +71,26 @@ public class ReservaService implements IReservaService {
     public ReservaDto obtenerReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id.intValue())
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        validarDueño(reserva);
         return reservaMapper.toDto(reserva);
     }
 
     @Override
+    @Transactional
     public void cancelarReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id.intValue())
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        validarDueño(reserva);
+
+        reserva.getShowtime().liberarAsientosDe(reserva);
         reserva.setEstado("CANCELADA");
         reservaRepository.save(reserva);
+    }
+
+    private void validarDueño(Reserva reserva) {
+        if (!reserva.getUsuario().equals(usuarioAutenticado())) {
+            throw new IllegalStateException("No podés operar sobre una reserva que no es tuya");
+        }
     }
 }
 

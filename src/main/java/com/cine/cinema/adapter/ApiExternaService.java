@@ -13,15 +13,19 @@ import com.cine.cinema.models.entities.pelicula.PeliculaDto;
 @Service
 public class ApiExternaService {
 
-    @Value("${api.externa.url}")
+    @Value("${api.externa.url:}")
     private String apiUrl;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    public boolean noConfigurada() {
+        return apiUrl == null || apiUrl.isBlank();
+    }
+
     // Obtiene todas las películas
     public List<PeliculaDto> obtenerPeliculasExternas() {
         PeliculaDto[] peliculas = restTemplate.getForObject(apiUrl, PeliculaDto[].class);
-        return Arrays.asList(peliculas);
+        return peliculas == null ? List.of() : Arrays.asList(peliculas);
     }
 
     // Obtiene películas desde una fecha específica (si la API lo permite por parámetro)
@@ -29,6 +33,6 @@ public class ApiExternaService {
         // Suponiendo que la API acepta un parámetro ?fecha=YYYY-MM-DD
         String urlConFecha = apiUrl + "?fecha=" + fecha.format(DateTimeFormatter.ISO_DATE);
         PeliculaDto[] peliculas = restTemplate.getForObject(urlConFecha, PeliculaDto[].class);
-        return Arrays.asList(peliculas);
+        return peliculas == null ? List.of() : Arrays.asList(peliculas);
     }
 }

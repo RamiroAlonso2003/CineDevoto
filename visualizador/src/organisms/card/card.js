@@ -2,11 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './card.css';
 
-const Card = ({ 
+const Card = ({
   id,
-  title = 'Película sin título', 
-  duration = '120 min', 
-  imageUrl = 'https://via.placeholder.com/260x380?text=Sin+Imagen' 
+  title = 'Película sin título',
+  duration = '120 min',
+  imageUrl
 }) => {
   const navigate = useNavigate();
 
@@ -17,13 +17,14 @@ const Card = ({
   };
 
   return (
-    <div className="movie-card" onClick={handleClick} style={{ cursor: id ? 'pointer' : 'default' }}>
-      <div className="movie-card-image">
-        <img src={imageUrl} alt={title} />
-      </div>
-      <div className="movie-card-info">
-        <div className="movie-duration">{duration}</div>
-        <div className="movie-title">{title}</div>
+    <div className="card" onClick={handleClick} style={{ cursor: id ? 'pointer' : 'default' }}>
+      <div
+        className="card__poster"
+        style={imageUrl ? { backgroundImage: `url(${imageUrl})` } : undefined}
+      />
+      <div className="card__body">
+        <div className="card__meta">{duration}</div>
+        <div className="card__title">{title}</div>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ public class ShowtimeMapper {
         if (showtime == null) return null;
 
         return ShowtimeDto.builder()
+                .showtimeId(showtime.getShowtimeId())
                 .inicio(showtime.getInicio())
                 .fin(showtime.getFin())
                 .peliculaId(Math.toIntExact(showtime.getPelicula().getPeliculaId()))
